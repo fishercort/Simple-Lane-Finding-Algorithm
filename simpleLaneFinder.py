@@ -135,7 +135,7 @@ def draw_lines(img, lines, color=[255, 0, 0], thickness=7):
                     left_lines.append(line)  
     
     
-    # Run linear regression to find best fit line for right and left lane lines
+    # Run linear regression
     # Right lane lines
     right_lines = np.asarray(right_lines)
     rightX = []
