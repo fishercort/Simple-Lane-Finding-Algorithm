@@ -1,50 +1,19 @@
-
+# Cort Fisher
+# 12/24/17
 # coding: utf-8
 
 # # Self-Driving Car Engineer Nanodegree
 # 
 # 
 # ## Project: **Finding Lane Lines on the Road** 
-# ***
-# In this project, you will use the tools you learned about in the lesson to identify lane lines on the road.  You can develop your pipeline on a series of individual images, and later apply the result to a video stream (really just a series of images). Check out the video clip "raw-lines-example.mp4" (also contained in this repository) to see what the output should look like after using the helper functions below. 
-# 
-# Once you have a result that looks roughly like "raw-lines-example.mp4", you'll need to get creative and try to average and/or extrapolate the line segments you've detected to map out the full extent of the lane lines.  You can see an example of the result you're going for in the video "P1_example.mp4".  Ultimately, you would like to draw just one line for the left side of the lane, and one for the right.
-# 
-# In addition to implementing code, there is a brief writeup to complete. The writeup should be completed in a separate file, which can be either a markdown file or a pdf document. There is a [write up template](https://github.com/udacity/CarND-LaneLines-P1/blob/master/writeup_template.md) that can be used to guide the writing process. Completing both the code in the Ipython notebook and the writeup template will cover all of the [rubric points](https://review.udacity.com/#!/rubrics/322/view) for this project.
-# 
-# ---
-# Let's have a look at our first image called 'test_images/solidWhiteRight.jpg'.  Run the 2 cells below (hit Shift-Enter or the "play" button above) to display the image.
-# 
-# **Note: If, at any point, you encounter frozen display windows or other confounding issues, you can always start again with a clean slate by going to the "Kernel" menu above and selecting "Restart & Clear Output".**
-# 
-# ---
 
 # **The tools you have are color selection, region of interest selection, grayscaling, Gaussian smoothing, Canny Edge Detection and Hough Tranform line detection.  You  are also free to explore and try other techniques that were not presented in the lesson.  Your goal is piece together a pipeline to detect the line segments in the image, then average/extrapolate them and draw them onto the image for display (as below).  Once you have a working pipeline, try it out on the video stream below.**
 # 
 # ---
-# 
-# <figure>
-#  <img src="examples/line-segments-example.jpg" width="380" alt="Combined Image" />
-#  <figcaption>
-#  <p></p> 
-#  <p style="text-align: center;"> Your output should look something like this (above) after detecting line segments using the helper functions below </p> 
-#  </figcaption>
-# </figure>
-#  <p></p> 
-# <figure>
-#  <img src="examples/laneLines_thirdPass.jpg" width="380" alt="Combined Image" />
-#  <figcaption>
-#  <p></p> 
-#  <p style="text-align: center;"> Your goal is to connect/average/extrapolate line segments to get output like this</p> 
-#  </figcaption>
-# </figure>
 
 # **Run the cell below to import some packages.  If you get an `import error` for a package you've already installed, try changing your kernel (select the Kernel menu above --> Change Kernel).  Still have problems?  Try relaunching Jupyter Notebook from the terminal prompt.  Also, consult the forums for more troubleshooting tips.**  
 
 # ## Import Packages
-
-# In[142]:
-
 
 #importing some useful packages
 import matplotlib.pyplot as plt
@@ -55,9 +24,6 @@ get_ipython().run_line_magic('matplotlib', 'inline')
 
 
 # ## Read in an Image
-
-# In[143]:
-
 
 #reading in an image
 image = mpimg.imread('test_images/solidWhiteRight.jpg')
@@ -84,9 +50,6 @@ plt.imshow(image)  # if you wanted to show a single color channel image called '
 # ## Helper Functions
 
 # Below are some helper functions to help get you started. They should look familiar from the lesson!
-
-# In[174]:
-
 
 import math
 
@@ -150,10 +113,7 @@ def draw_lines(img, lines, color=[255, 0, 0], thickness=7):
     If you want to make the lines semi-transparent, think about combining
     this function with the weighted_img() function below
     """
-    """
-    for line in lines:
-        for x1, y1, x2, y2 in line:
-            cv2.line(img, (x1, y1), (x2, y2), color, thickness)"""
+
     
     right_lines = []
     left_lines = []
@@ -266,9 +226,6 @@ def weighted_img(img, initial_img, α=0.8, β=1., λ=0.):
 # Build your pipeline to work on the images in the directory "test_images"  
 # **You should make sure your pipeline works well on these images before you try the videos.**
 
-# In[175]:
-
-
 import os
 os.listdir("test_images/")
 
@@ -281,13 +238,13 @@ os.listdir("test_images/")
 # 
 # Try tuning the various parameters, especially the low and high Canny thresholds as well as the Hough lines parameters.
 
-# In[176]:
-
 
 from PIL import Image
 import glob
 image_list = []
-for filename in glob.glob('test_images/*.jpg'): #get all jpg images in the file
+
+#loop through every jpg file in the file
+for filename in glob.glob('test_images/*.jpg'): 
     im=cv2.imread(filename)
     image_list.append(im)
     
@@ -297,10 +254,10 @@ for image1 in image_list:
     # then save them to the test_images_output directory.
     image1 = cv2.cvtColor(image1, cv2.COLOR_BGR2RGB)
     
+    # Make a figure so that multiple images can be displayed
     plt.figure()
-    #plt.imshow(image1)
+
     gray = grayscale(image1)
-    #plt.imshow(gray, cmap='gray')
 
     # Define a kernel size and apply Gaussian smoothing
     blur_gray = gaussian_blur(gray, 5)
@@ -323,14 +280,11 @@ for image1 in image_list:
     min_line_length = 10 #minimum number of pixels making up a line
     max_line_gap = 8    # maximum gap in pixels between connectable line segments
 
+    #Call the hough transform to get the hough lines
     line_img = hough_lines(masked_image, rho, theta, threshold, min_line_length, max_line_gap)
 
+    #Call the weighted function on the image
     lines_edges = weighted_img(line_img, image1, α=0.8, β=1., λ=0.)
-
-    
-    
-    
-    
     # Draw the lines on the edge image
     plt.imshow(lines_edges) 
     
@@ -363,16 +317,10 @@ for image1 in image_list:
 # ```
 # **Follow the instructions in the error message and check out [this forum post](https://discussions.udacity.com/t/project-error-of-test-on-videos/274082) for more troubleshooting tips across operating systems.**
 
-# In[147]:
-
 
 # Import everything needed to edit/save/watch video clips
 from moviepy.editor import VideoFileClip
 from IPython.display import HTML
-
-
-# In[148]:
-
 
 def process_image(image):
     # NOTE: The output you return should be a color image (3 channel) for processing video below
@@ -415,16 +363,12 @@ def process_image(image):
 
     # Draw the lines on the edge image
    
-    #plt.imshow(lines_edges) 
-    
-    
+  
     
     return lines_edges
 
 
 # Let's try the one with the solid white lane on the right first ...
-
-# In[149]:
 
 
 white_output = 'test_videos_output/solidWhiteRight.mp4'
@@ -440,9 +384,6 @@ get_ipython().run_line_magic('time', 'white_clip.write_videofile(white_output, a
 
 # Play the video inline, or if you prefer find the video in your filesystem (should be in the same directory) and play it in your video player of choice.
 
-# In[133]:
-
-
 HTML("""
 <video width="960" height="540" controls>
   <source src="{0}">
@@ -457,9 +398,6 @@ HTML("""
 # **Go back and modify your draw_lines function accordingly and try re-running your pipeline. The new output should draw a single, solid line over the left lane line and a single, solid line over the right lane line. The lines should start from the bottom of the image and extend out to the top of the region of interest.**
 
 # Now for the one with the solid yellow lane on the left. This one's more tricky!
-
-# In[134]:
-
 
 yellow_output = 'test_videos_output/solidYellowLeft.mp4'
 ## To speed up the testing process you may want to try your pipeline on a shorter subclip of the video
