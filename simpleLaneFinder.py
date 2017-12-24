@@ -241,15 +241,13 @@ os.listdir("test_images/")
 
 from PIL import Image
 import glob
-image_list = []
-
-#loop through every jpg file in the file
-for filename in glob.glob('test_images/*.jpg'): 
-    im=cv2.imread(filename)
-    image_list.append(im)
+images = []
+for file in glob.glob('test_images/*.jpg'): #get all jpg images in the file
+    ima = cv2.imread(file)
+    images.append(ima)
     
 count = 1
-for image1 in image_list:
+for image1 in images:
     # TODO: Build your pipeline that will draw lane lines on the test_images
     # then save them to the test_images_output directory.
     image1 = cv2.cvtColor(image1, cv2.COLOR_BGR2RGB)
