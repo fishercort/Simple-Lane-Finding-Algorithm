@@ -16,9 +16,6 @@ My pipeline consisted of 5 steps. The first step was to conver the image to gray
 
 In order to draw a single line on the left and right lanes, I modified the draw_lines() function by first looping through all of the lines drawn and sorting them into the left and the right line. I did this by first taking out any lines that have a slope with absolute value less than 0.5. I then checked if the slope was positive or negative, putting them into the respective vector left_line or right_line according to their slope. From here I took only the right lines and put all of the x values in their own vector and all of the y values in their own vector. I then ran a linear regression on the vectors to get the slope and intercept of the right line. I repeated this same process for the left line. From here I calculated the x and y endpoints of each line and drew them on the image. 
 
-If you'd like to include images to show how the pipeline works, here is how to include an image: 
-
-![alt text][image1]
 
 
 ### 2. Identify potential shortcomings with your current pipeline
