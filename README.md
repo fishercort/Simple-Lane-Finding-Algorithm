@@ -1,9 +1,6 @@
 # Simple-Lane-Finding-Algorithm
-Project: Detect and draw extrapolated lane lines on a video stream
-
 ---
-
-**Finding Lane Lines on the Road**
+**Project: Detect and draw extrapolated lane lines on a video stream**
 
 [//]: # (Image References)
 
@@ -34,6 +31,6 @@ Another limitation of this pipeline is that the masked region has to be changed 
 
 ### 3. Suggest possible improvements to your pipeline
 
-A possible improvement would be to ...
+A possible improvement would be to make the lines drawn be actual polynomial equations. This would make it so they could actual follow the contour of the lanes. 
 
-Another potential improvement could be to ...
+Another potential improvement could be to identify the entire lane as a region as opposed to just identifying the left and right line. 
