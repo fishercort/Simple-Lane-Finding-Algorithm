@@ -138,6 +138,7 @@ def region_of_interest(img, vertices):
     return masked_image
 
 
+
 def draw_lines(img, lines, color=[255, 0, 0], thickness=7):
     """
     NOTE: this is the function you might want to use as a starting point once you want to 
@@ -166,7 +167,6 @@ def draw_lines(img, lines, color=[255, 0, 0], thickness=7):
     #loop through all of the lines to sort them out if theyre in the left or right lane
     for line in lines:
         for x1, y1, x2, y2 in line:
-            x1, y1, x2, y2 = line[0]  # line = [[x1, y1, x2, y2]]
             
             # Calculate slope
             slope = (y2 - y1) / (x2 - x1)
@@ -183,48 +183,48 @@ def draw_lines(img, lines, color=[255, 0, 0], thickness=7):
     
     # Run linear regression to find best fit line for right and left lane lines
     # Right lane lines
-    right_lines_x = []
-    right_lines_y = []
+    right_lines = np.asarray(right_lines)
+    rightX = []
+    rightY = []
     
     #Loop through and put all x-values in one vector, and all y-values in another
     for line in right_lines:
-        x1, y1, x2, y2 = line[0]
+        for x1, y1, x2, y2 in line:
+            rightX.append(x1)
+            rightX.append(x2)
         
-        right_lines_x.append(x1)
-        right_lines_x.append(x2)
-        
-        right_lines_y.append(y1)
-        right_lines_y.append(y2)
+            rightY.append(y1)
+            rightY.append(y2)
         
     
-    right_slope, right_intercept = np.polyfit(right_lines_x, right_lines_y, 1)  # y = m*x + b
+    right_slope, right_intercept = np.polyfit(rightX, rightY, 1)  # y = m*x + b
     
         
     # Left lane lines
-    left_lines_x = []
-    left_lines_y = []
+    left_lines = np.asarray(left_lines)
+    leftX = []
+    leftY = []
     
     #Loop through and put all x-values in one vector, and all y-values in another
     for line in left_lines:
-        x1, y1, x2, y2 = line[0]
-        
-        left_lines_x.append(x1)
-        left_lines_x.append(x2)
-        
-        left_lines_y.append(y1)
-        left_lines_y.append(y2)
+        for x1, y1, x2, y2 in line:
+            leftX.append(x1)
+            leftX.append(x2)
+
+            leftY.append(y1)
+            leftY.append(y2)
         
 
-    left_slope, left_intercept = np.polyfit(left_lines_x, left_lines_y, 1)  # y = m*x + b
+    left_slope, left_intercept = np.polyfit(leftX, leftY, 1)  # y = m*x + b
   
     
     
     # Find end points for right and left lines in order to extrapolate the lines
     #40% of the image
     
-    height_thresh = .4
+    height_th = .4
     y1 = img.shape[0]
-    y2 = img.shape[0] * (1 - height_thresh)
+    y2 = img.shape[0] * (1 - height_th)
     
     #Calculate x-values of right line
     right_x1 = (y1 - right_intercept) / right_slope # x = (y-b)/m
@@ -235,16 +235,10 @@ def draw_lines(img, lines, color=[255, 0, 0], thickness=7):
     left_x2 = (y2 - left_intercept) / left_slope # x = (y-b)/m
         
     # Convert into int because it expects pixels as integers
-    y1 = int(y1)
-    y2 = int(y2)
-    right_x1 = int(right_x1)
-    right_x2 = int(right_x2)
-    left_x1 = int(left_x1)
-    left_x2 = int(left_x2)
-
     # Draw both lanes on the image
-    cv2.line(img, (right_x1, y1), (right_x2, y2), color, thickness)
-    cv2.line(img, (left_x1, y1), (left_x2, y2), color, thickness)
+    cv2.line(img, (int(right_x1), int(y1)), (int(right_x2), int(y2)), color, thickness)
+    cv2.line(img, (int(left_x1), int(y1)), (int(left_x2), int(y2)), color, thickness)
+
 
 def hough_lines(img, rho, theta, threshold, min_line_len, max_line_gap):
     """
