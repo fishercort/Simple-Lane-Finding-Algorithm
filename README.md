@@ -73,10 +73,6 @@ plt.imshow(image)  # if you wanted to show a single color channel image called '
 
 
 
-
-![png](output_6_2.png)
-
-
 ## Ideas for Lane Detection Pipeline
 
 **Some OpenCV functions (beyond those introduced in the lesson) that might be useful for this project are:**
@@ -372,27 +368,27 @@ for image1 in image_list:
 ```
 
 
-![png](output_16_0.png)
+![jpg](test_images_output/image1_1.jpg)
 
 
 
-![png](output_16_1.png)
+![jpg](test_images_output/image1_2.jpg)
 
 
 
-![png](output_16_2.png)
+![jpg](test_images_output/image1_3.jpg)
 
 
 
-![png](output_16_3.png)
+![jpg](test_images_output/image1_4.jpg)
 
 
 
-![png](output_16_4.png)
+![jpg](test_images_output/image1_5.jpg)
 
 
 
-![png](output_16_5.png)
+![jpg](test_images_output/image1_6.jpg)
 
 
 ## Test on Videos
@@ -490,41 +486,6 @@ white_clip = clip1.fl_image(process_image) #NOTE: this function expects color im
     [MoviePy] >>>> Building video test_videos_output/solidWhiteRight.mp4
     [MoviePy] Writing video test_videos_output/solidWhiteRight.mp4
 
-
-    
-      0%|          | 0/222 [00:00<?, ?it/s][A
-      4%|▍         | 9/222 [00:00<00:02, 82.85it/s][A
-      9%|▊         | 19/222 [00:00<00:02, 85.78it/s][A
-     13%|█▎        | 29/222 [00:00<00:02, 87.13it/s][A
-     18%|█▊        | 39/222 [00:00<00:02, 89.20it/s][A
-     21%|██        | 47/222 [00:00<00:02, 78.18it/s][A
-     24%|██▍       | 54/222 [00:00<00:02, 71.55it/s][A
-     27%|██▋       | 61/222 [00:00<00:02, 64.26it/s][A
-     31%|███       | 68/222 [00:00<00:02, 58.85it/s][A
-     33%|███▎      | 74/222 [00:01<00:02, 58.33it/s][A
-     36%|███▋      | 81/222 [00:01<00:02, 61.36it/s][A
-     40%|███▉      | 88/222 [00:01<00:02, 61.34it/s][A
-     43%|████▎     | 95/222 [00:01<00:02, 57.96it/s][A
-     45%|████▌     | 101/222 [00:01<00:02, 55.66it/s][A
-     48%|████▊     | 107/222 [00:01<00:02, 53.08it/s][A
-     51%|█████     | 113/222 [00:01<00:02, 51.89it/s][A
-     54%|█████▎    | 119/222 [00:01<00:02, 50.95it/s][A
-     56%|█████▋    | 125/222 [00:02<00:01, 52.18it/s][A
-     59%|█████▉    | 132/222 [00:02<00:01, 54.44it/s][A
-     62%|██████▏   | 138/222 [00:02<00:01, 54.62it/s][A
-     65%|██████▍   | 144/222 [00:02<00:01, 54.20it/s][A
-     68%|██████▊   | 150/222 [00:02<00:01, 54.57it/s][A
-     70%|███████   | 156/222 [00:02<00:01, 52.86it/s][A
-     73%|███████▎  | 162/222 [00:02<00:01, 53.45it/s][A
-     76%|███████▌  | 168/222 [00:02<00:01, 51.17it/s][A
-     78%|███████▊  | 174/222 [00:02<00:00, 53.35it/s][A
-     82%|████████▏ | 181/222 [00:03<00:00, 56.18it/s][A
-     84%|████████▍ | 187/222 [00:03<00:00, 54.02it/s][A
-     87%|████████▋ | 193/222 [00:03<00:00, 55.30it/s][A
-     90%|████████▉ | 199/222 [00:03<00:00, 54.99it/s][A
-     92%|█████████▏| 205/222 [00:03<00:00, 56.36it/s][A
-     95%|█████████▌| 211/222 [00:03<00:00, 54.36it/s][A
-     98%|█████████▊| 217/222 [00:03<00:00, 53.61it/s][A
     100%|█████████▉| 221/222 [00:03<00:00, 58.41it/s][A
 
     [MoviePy] Done.
@@ -553,14 +514,6 @@ HTML("""
   <source src="test_videos_output/solidWhiteRight.mp4">
 </video>
 
-
-
-
-## Improve the draw_lines() function
-
-**At this point, if you were successful with making the pipeline and tuning parameters, you probably have the Hough line segments drawn onto the road, but what about identifying the full extent of the lane and marking it clearly as in the example video (P1_example.mp4)?  Think about defining a line to run the full length of the visible lane based on the line segments you identified with the Hough Transform. As mentioned previously, try to average and/or extrapolate the line segments you've detected to map out the full extent of the lane lines. You can see an example of the result you're going for in the video "P1_example.mp4".**
-
-**Go back and modify your draw_lines function accordingly and try re-running your pipeline. The new output should draw a single, solid line over the left lane line and a single, solid line over the right lane line. The lines should start from the bottom of the image and extend out to the top of the region of interest.**
 
 Now for the one with the solid yellow lane on the left. This one's more tricky!
 
@@ -611,7 +564,4 @@ HTML("""
 
 
 
-## Writeup and Submission
-
-If you're satisfied with your video outputs, it's time to make the report writeup in a pdf or markdown file. Once you have this Ipython notebook ready along with the writeup, it's time to submit for review! Here is a [link](https://github.com/udacity/CarND-LaneLines-P1/blob/master/writeup_template.md) to the writeup template file.
 
